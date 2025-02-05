@@ -1,62 +1,63 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const axios = require('axios')
+const axios = require('axios');
 
-app.use(cors())
-app.get('/api/classify-number/:id/', async (req, res) => {
+app.use(cors());
+app.get('/api/classify-number/:number/', async (req, res) => {
     try {
-        const { id } = req.params;
-        const num = parseInt(id);
+        const { number } = req.params;
+        const num = parseInt(number);
         if (isNaN(num)) {
             return res.status(400).json({
-                "number": "alphabet",
+                "number": number,
                 "error": true
             });
         }
-        const response = await axios.get(`http://numbersapi.com/${id}/math`)
-        const fun_fact = response.data
+        const response = await axios.get(`http://numbersapi.com/${number}/math`);
+        const fun_fact = response.data;
 
         let digit_sum = 0;
-        for (let i = 0; i < id.length; i++) {
-            if (!isNaN(id[i])) {
-                digit_sum += parseInt(id[i]);
+        for (let i = 0; i < number.length; i++) { // 'id' is now 'number'
+            if (!isNaN(number[i])) {
+                digit_sum += parseInt(number[i]);
             }
         }
 
-        function isPrime(id) {
-                if (id < 2) return false;    
-                for (let i = 2; i <= Math.sqrt(id); i++) { 
-                    if (id % i === 0) {
-                        return false;
-                    }
-                }
-                return true;
-        }
-        function isPerfectNumber(id) {
-            const number = parseInt(id);
-        
-            if (number <= 0) return false;
-            let sum = 0;
-        
-            for (let i = 1; i <= Math.floor(number / 2); i++) {
+        function isPrime(number) {
+            if (number < 2) return false;
+            for (let i = 2; i <= Math.sqrt(number); i++) {
                 if (number % i === 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function isPerfectNumber(number) {
+            const num = parseInt(number);
+
+            if (num <= 0) return false;
+            let sum = 0;
+
+            for (let i = 1; i <= Math.floor(num / 2); i++) {
+                if (num % i === 0) {
                     sum += i;
                 }
             }
-            return sum === number;
+            return sum === num;
         }
-        
-        function isArmstrong(id) {
-            const number = parseInt(id);
-            const digits = number.toString().split('');
+
+        function isArmstrong(number) {
+            const num = parseInt(number);
+            const digits = num.toString().split('');
             const numDigits = digits.length;
             const sum = digits.reduce((acc, digit) => acc + Math.pow(Number(digit), numDigits), 0);
-        
-            const isArmstrong = sum === number;
-            const isOdd = number % 2 !== 0;
-            const isEven = number % 2 === 0;
-        
+
+            const isArmstrong = sum === num;
+            const isOdd = num % 2 !== 0;
+            const isEven = num % 2 === 0;
+
             if (isArmstrong) {
                 if (isOdd) {
                     return ["armstrong", "odd"];
@@ -67,17 +68,17 @@ app.get('/api/classify-number/:id/', async (req, res) => {
                 return isOdd ? ["odd"] : ["even"];
             }
         }
-        
+
         res.json({
-            "number": id,
-            "is_prime": isPrime(id),
-            "is_perfect":isPerfectNumber(id),
-            "properties": (isArmstrong(id)),
+            "number": number,
+            "is_prime": isPrime(num),
+            "is_perfect": isPerfectNumber(num),
+            "properties": isArmstrong(num),
             "digit_sum": digit_sum,
             "fun_fact": fun_fact,
-       });
-    
-    } catch (error){
+        });
+
+    } catch (error) {
         res.status(500).json({ error: 'Failed to fetch external data' });
     }
 });

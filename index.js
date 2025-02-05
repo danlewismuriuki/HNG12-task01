@@ -17,7 +17,7 @@ app.get('/api/classify-number', async (req, res) => {
         const fun_fact = response.data;
 
         let digit_sum = 0;
-        for (let i = 0; i < number.length; i++) { // 'id' is now 'number'
+        for (let i = 0; i < number.length; i++) {
             if (!isNaN(number[i])) {
                 digit_sum += parseInt(number[i]);
             }
@@ -48,7 +48,7 @@ app.get('/api/classify-number', async (req, res) => {
         }
 
         function isArmstrong(number) {
-            const num = parseInt(number);
+            const num = Math.abs(parseInt(number));
             const digits = num.toString().split('');
             const numDigits = digits.length;
             const sum = digits.reduce((acc, digit) => acc + Math.pow(Number(digit), numDigits), 0);

@@ -5,7 +5,6 @@ const axios = require('axios');
 
 app.use(cors());
 app.get('/api/classify-number/:number/', async (req, res) => {
-    try {
         const { number } = req.params;
         const num = parseInt(number);
         if (isNaN(num)) {
@@ -77,10 +76,6 @@ app.get('/api/classify-number/:number/', async (req, res) => {
             "digit_sum": digit_sum,
             "fun_fact": fun_fact,
         });
-
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch external data' });
-    }
 });
 
 const port = 3000;

@@ -20,7 +20,7 @@ Features
 
 Uses Express.js for routing
 
-Fetches fun facts from Numbers API
+Fetches fun facts from the Numbers API
 
 Checks if a number is prime, perfect, or Armstrong
 

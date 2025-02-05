@@ -1,0 +1,25 @@
+{
+  "name": "hng12-task01",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danlewismuriuki/HNG12-task01/issues"
+  },
+  "homepage": "https://github.com/danlewismuriuki/HNG12-task01#readme",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}

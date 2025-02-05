@@ -10,7 +10,7 @@ app.get('/api/classify-number/:id/', async (req, res) => {
         const num = parseInt(id);
         if (isNaN(num)) {
             return res.status(400).json({
-                "number": id,
+                "number": "alphabet",
                 "error": true
             });
         }
